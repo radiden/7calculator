@@ -6,8 +6,8 @@ const Winner = ({ players }) => {
     const [winner, setWinner] = useState('');
 
     const setShowWinner = (state) => {
-        selectWinner()
-        _setShowWinner(state)
+        selectWinner();
+        _setShowWinner(state);
     }
 
     const sumArray = (array) => {
@@ -21,11 +21,22 @@ const Winner = ({ players }) => {
         let playerScores = [];
         players.forEach(p => {
             playerScores.push({ name: p.name, finalScore: sumArray(p.score) })
-        })
-        setWinner(playerScores.sort((a, b) => {
+        });
+        playerScores.sort((a, b) => {
             return a.finalScore < b.finalScore;
-        })[0].name);
-        console.log(playerScores);
+        });
+        let winners = [ playerScores[0].name ];
+        for (let i = 1; i < playerScores.length; i++) {
+            if (playerScores[0].finalScore === playerScores[i].finalScore) {
+                winners.push(playerScores[i].name);
+            }
+        }
+        if (winners.length > 1) {
+            let winnerStr = 'Remis! Wygrywają: ' + winners.join(', ');
+            setWinner(winnerStr);
+        } else {
+            setWinner('Wygrywa ' + playerScores[0].name);
+        }
     }
 
     return (
@@ -36,7 +47,7 @@ const Winner = ({ players }) => {
                     <h3>Zwycięzcą jest...</h3>
                     <p>{winner}!</p>
                     <footer>
-                        <a role="button" onClick={() => {setShowWinner(false)}}>Powrót</a>
+                        <button onClick={() => {setShowWinner(false)}}>Powrót</button>
                     </footer>
                 </article>
             </dialog>

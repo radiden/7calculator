@@ -33,7 +33,7 @@ const ChoosePlayers = ({ players, setPlayers }) => {
                 <Fragment key={`${player}~${index}`}>
                     <ButtonGrid className="grid">
                         <input onChange={ e => handlePlayerChange(index, e) } type="text" id="name" name="name" value={player.name}></input>
-                        <button role="button" onClick={() => { removePlayer(index) }}>Usuń</button>
+                        <button onClick={() => { removePlayer(index) }}>Usuń</button>
                     </ButtonGrid>
                 </Fragment>
             ))}
