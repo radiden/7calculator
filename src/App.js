@@ -23,7 +23,7 @@ function App() {
       <PlayerScoreTable players={players} setPlayers={setPlayers} />
       <div className="container">
         <article>
-          <h3>Wyniki za symbole na zielonych kartach</h3>
+          <h3>Punkty za symbole na zielonych kartach</h3>
           <table>
             <tbody>
               <tr>
