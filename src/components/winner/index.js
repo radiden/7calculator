@@ -1,71 +1,103 @@
 import { useState } from "react";
 
 const Winner = ({ players }) => {
-  const [showWinner, _setShowWinner] = useState(false);
-  const [winner, setWinner] = useState("");
+    const [showWinners, _setShowWinners] = useState(false);
+    const [winners, setWinners] = useState([]);
 
-  const setShowWinner = (state) => {
-    selectWinner();
-    _setShowWinner(state);
-  };
+    const scoreEmojis = ["🥇", "🥈", "🥉", "◾"];
 
-  const sumArray = (array) => {
-    let sum = 0;
-    array.forEach((e) => {
-      sum += e;
-    });
-    if (isNaN(sum)) return 0;
-    return sum;
-  };
+    const setShowWinners = (state) => {
+        selectWinners();
+        _setShowWinners(state);
+    };
 
-  const selectWinner = () => {
-    let playerScores = [];
-    players.forEach((p) => {
-      playerScores.push({ name: p.name, finalScore: sumArray(p.score) });
-    });
-    playerScores.sort((a, b) => {
-      return a.finalScore < b.finalScore;
-    });
-    let winners = [playerScores[0].name];
-    for (let i = 1; i < playerScores.length; i++) {
-      if (playerScores[0].finalScore === playerScores[i].finalScore) {
-        winners.push(playerScores[i].name);
-      }
-    }
-    if (winners.length > 1) {
-      let winnerStr = "Remis! Wygrywają: " + winners.join(", ");
-      setWinner(winnerStr);
-    } else {
-      setWinner("Wygrywa " + playerScores[0].name);
-    }
-  };
+    const sumArray = (array) => {
+        let sum = 0;
+        array.forEach((e) => {
+            sum += e;
+        });
+        if (isNaN(sum)) return 0;
+        return sum;
+    };
 
-  return (
-    <>
-      <button
-        onClick={() => {
-          setShowWinner(true);
-        }}
-      >
-        Pokaż zwycięzce
-      </button>
-      <dialog open={showWinner}>
-        <article>
-          <h3>Zwycięzcą jest...</h3>
-          <p>{winner}!</p>
-          <footer>
+    const selectWinners = () => {
+        let playerScores = [];
+        players.forEach((p) => {
+            playerScores.push({ name: p.name, finalScore: sumArray(p.score) });
+        });
+        playerScores.sort((a, b) => {
+            return b.finalScore - a.finalScore;
+        });
+
+        let scoresArr = [];
+        var lastDrawPerson = 0;
+
+        for (let i = 0; i < 3; i++) {
+            if (lastDrawPerson !== playerScores.length) {
+                let drawPlayers = [];
+
+                drawPlayers.push(playerScores[lastDrawPerson]);
+                for (let x = lastDrawPerson + 1; x < playerScores.length; x++) {
+                    if (playerScores[lastDrawPerson].finalScore === playerScores[x].finalScore) {
+                        drawPlayers.push(playerScores[x]);
+                    }
+                }
+                lastDrawPerson += drawPlayers.length;
+                scoresArr.push(drawPlayers);
+            }
+        }
+
+        if (lastDrawPerson !== playerScores.length) {
+            scoresArr.push(playerScores.slice(lastDrawPerson));
+        }
+
+        let resultsArr = [];
+        for (let i = 0; i < 3 && i < scoresArr.length; i++) {
+            resultsArr.push(`${scoreEmojis[i]} ${scoresArr[i]
+                .map((v, _) => {
+                    return v.name;
+                })
+                .join(", ")}; wynik: ${scoresArr[i][0].finalScore}
+                `);
+        }
+        if (scoresArr.length > 3) {
+            scoresArr[3].forEach((s) => {
+                resultsArr.push(`${scoreEmojis[3]} ${s.name}, wynik: ${s.finalScore}`);
+            });
+        }
+        setWinners(resultsArr);
+    };
+
+    return (
+        <>
             <button
-              onClick={() => {
-                setShowWinner(false);
-              }}
+                onClick={() => {
+                    setShowWinners(true);
+                }}
             >
-              Powrót
+                Pokaż wyniki
             </button>
-          </footer>
-        </article>
-      </dialog>
-    </>
-  );
+            <dialog open={showWinners}>
+                <article>
+                    <h3>Wyniki</h3>
+                    <ul>
+                        {winners.map((w, i) => {
+                            return <li>{w}</li>;
+                        })}
+                    </ul>
+                    <footer>
+                        <button
+                            onClick={() => {
+                                setShowWinners(false);
+                            }}
+                        >
+                            Powrót
+                        </button>
+                    </footer>
+                </article>
+            </dialog>
+        </>
+    );
 };
 
 export default Winner;
