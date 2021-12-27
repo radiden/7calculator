@@ -18,10 +18,35 @@ function App() {
 
   return (
     <div className="App">
-      <ChoosePlayers players={ players } setPlayers={ setPlayers } />
-      <article>
-        <PlayerScoreTable players={ players } setPlayers={ setPlayers } />
-      </article>
+      <div className="container">
+        <ChoosePlayers players={ players } setPlayers={ setPlayers } />
+      </div>
+      <PlayerScoreTable players={ players } setPlayers={ setPlayers } />
+      <div className="container">
+        <article>
+          <h3>Wyniki za symbole na zielonych kartach</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Liczba identicznych symboli</th>
+                  {[...Array(6)].map((_, i) => {
+                    return (
+                      <td>{i+1}</td>
+                    );
+                  })}
+                </tr>
+                <tr>
+                  <th>Punkty</th>
+                  {[...Array(6)].map((_, i) => {
+                    return (
+                      <td>{(i+1)**2}</td>
+                    );
+                  })}
+                </tr>
+              </tbody>
+            </table>
+          </article>
+      </div>
     </div>
   );
 }
