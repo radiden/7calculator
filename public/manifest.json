@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "7Kalkulator",
+  "name": "Kalkulator wyników do gry 7 cudów świata",
   "icons": [
     {
       "src": "favicon.ico",

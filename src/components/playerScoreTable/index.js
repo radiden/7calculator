@@ -31,13 +31,21 @@ const PlayerScoreTable = ({ players, setPlayers }) => {
     const values = [...players];
     values[playerIndex].score[i] = parseInt(e.target.value);
     setPlayers(values);
-    console.log(players);
+  };
+
+  const clearScores = () => {
+    const values = [...players];
+    values.forEach((p) => {
+      p.score = [0, 0, 0, 0, 0, 0, 0];
+    });
+    setPlayers(values);
   };
 
   return (
     <div>
       <div className="container">
         <Winner players={players} />
+        <button onClick={clearScores}>Wyczyść punkty</button>
       </div>
       <Flickity className="carousel">
         {players.map((player, playerIndex) => {
