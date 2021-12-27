@@ -2,6 +2,8 @@
 
 This is a score calculator for the board game "7 Wonders" written in react.
 
+[Demo](https://7c.rai.cx)
+
 # Icon
 
 Icon credits:
