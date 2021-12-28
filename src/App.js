@@ -5,9 +5,9 @@ import "@picocss/pico";
 
 function App() {
     const [players, _setPlayers] = useState([
-        { name: "Gracz 1", score: [0, 0, 0, 0, 0, 0, 0] },
-        { name: "Gracz 2", score: [0, 0, 0, 0, 0, 0, 0] },
-        { name: "Gracz 3", score: [0, 0, 0, 0, 0, 0, 0] },
+        { name: '', score: [0, 0, 0, 0, 0, 0, 0] },
+        { name: '', score: [0, 0, 0, 0, 0, 0, 0] },
+        { name: '', score: [0, 0, 0, 0, 0, 0, 0] },
     ]);
 
     const setPlayers = (players) => {

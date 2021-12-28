@@ -48,7 +48,7 @@ const PlayerScoreTable = ({ players, setPlayers }) => {
                 {players.map((player, playerIndex) => {
                     return (
                         <Card>
-                            <h3>{player.name}</h3>
+                            <h3>{player.name.length > 0 ? player.name : `Gracz ${playerIndex + 1}`}</h3>
                             {scoreTypes.map((type, index) => {
                                 return (
                                     <Fragment key={`${player}~${index}`}>

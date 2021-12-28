@@ -22,8 +22,8 @@ const Winner = ({ players }) => {
 
     const selectWinners = () => {
         let playerScores = [];
-        players.forEach((p) => {
-            playerScores.push({ name: p.name, finalScore: sumArray(p.score) });
+        players.map((p, i) => {
+            playerScores.push({ name: (p.name.length > 0 ? p.name : `Gracz ${i + 1}`), finalScore: sumArray(p.score) });
         });
         playerScores.sort((a, b) => {
             return b.finalScore - a.finalScore;

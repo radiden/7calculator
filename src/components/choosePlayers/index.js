@@ -10,7 +10,7 @@ const ChoosePlayers = ({ players, setPlayers }) => {
     const addPlayer = () => {
         const values = [...players];
         values.push({
-            name: `Gracz ${players.length + 1}`,
+            name: '',
             score: [0, 0, 0, 0, 0, 0, 0],
         });
         setPlayers(values);
@@ -34,7 +34,7 @@ const ChoosePlayers = ({ players, setPlayers }) => {
             {players.map((player, index) => (
                 <Fragment key={`${player}~${index}`}>
                     <ButtonGrid className="grid">
-                        <input onChange={(e) => handlePlayerChange(index, e)} type="text" id="name" name="name" value={player.name}></input>
+                        <input onChange={(e) => handlePlayerChange(index, e)} type="text" id="name" name="name" placeholder={`Gracz ${index+1}`} value={player.name}></input>
                         <button
                             onClick={() => {
                                 removePlayer(index);
